@@ -25,6 +25,15 @@ Supported OS
 Dependencies
 ------------
 * Java {version 8 preferred}
+* Install Java using the ansible role.
+  ```
+  ansible-galaxy install -r requirements.yml --roles-path roles/
+  ```
+*  Point Ansible to Molecule's role path.Create an `ansible.cfg` in `/home/ubuntu/`.
+  ```
+  [defaults]
+  roles_path = ./roles:/home/ubuntu/restore/jenkins_ops/molecule/default/roles
+  ```
 
 Requirements
 ------------
