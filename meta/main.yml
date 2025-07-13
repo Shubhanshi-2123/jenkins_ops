@@ -21,5 +21,5 @@ galaxy_info:
     - jenkins
 
 dependencies:
-  - opstree_devops.java 
+  - name: opstree_devops.java 
 
