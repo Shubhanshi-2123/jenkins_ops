@@ -49,5 +49,5 @@
     regexp: '^JAVA_HOME='
     line: 'JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64'
     create: yes
-  notify: restart jenkins
+  notify: Restart jenkins
 
