@@ -3,4 +3,4 @@
   scm: git
   src: git+https://github.com/OT-OSM/java.git
   version: master
-...
+
