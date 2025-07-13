@@ -42,3 +42,12 @@
     name: jenkins
     state: "{{ jenkins_package_state }}"
   notify: configure default users
+
+- name: Set JAVA_HOME in Jenkins environment file
+  lineinfile:
+    path: /etc/default/jenkins
+    regexp: '^JAVA_HOME='
+    line: 'JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64'
+    create: yes
+  notify: restart jenkins
+
