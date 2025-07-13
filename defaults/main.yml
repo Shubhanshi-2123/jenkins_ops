@@ -14,8 +14,7 @@ jenkins_url: "{{ jenkins_base_url }}{{ jenkins_url_prefix }}"
 
 configuration_as_code: "disabled"
 jenkins_plugins:
-  - { name: active-choices, version: "2.8.8" }                    
-  - { name: bitbucket-branch-source, version: "936.4.3" }         
+  - { name: active-choices, version: latest }                         
   - { name: ansiColor, version: latest }                         
   - { name: aws-java-sdk-core, version: latest }
   - { name: aws-java-sdk-ec2, version: latest }
@@ -30,7 +29,6 @@ jenkins_plugins:
   - { name: asm-api, version: "9.8-135.vb_2239d08ee90" }
   - { name: authentication-tokens, version: "1.131.v7199556c3004" }
   - { name: azure-sdk, version: "206.v7df6fdd1d0ff" }
-  - { name: bitbucket-branch-source, version: "936.4.3" }
   - { name: blueocean, version: "1.27.19" }
   - { name: blueocean-bitbucket-pipeline, version: "1.27.19" }
   - { name: blueocean-pipeline-editor, version: "1.27.19" }
