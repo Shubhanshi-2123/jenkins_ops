@@ -10,6 +10,8 @@
 - name: Include admin variables
   include_vars:
     file: adminpass.yml
+    
+- include_tasks: install_java.yml
 
 - name: Define jenkins_repo_url
   set_fact:
