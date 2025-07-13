@@ -77,6 +77,12 @@ An inventory should look like this:-
 192.168.3.201    ansible_user=opstree 
 ```
 
+```
+[jenkins_target]
+ec2-jenkins ansible_host=0.0.0.0 ansible_user=ubuntu ansible_ssh_private_key_file=/home/ubuntu/.ssh/id_ed25...
+```
+---
+
 Example Playbook
 ----------------
 
@@ -90,6 +96,19 @@ Example Playbook
     - jenkins
 
 ```
+Example -2 
+
+```
+---
+- hosts: jenkins_target
+  #hosts: localhost
+  become: yes
+  connection: local
+  roles:
+    - jenkins_ops
+```
+---
+
 * ansible-playbook site.yml
 
 **After the successful installation of jenkins, browse through the jenkins url and you would get your login page**
