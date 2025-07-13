@@ -71,7 +71,7 @@ jenkins_plugins:
   - { name: mailer, version: "489.vd4b_25144138f" }
   - { name: matrix-auth, version: "3.2.6" }
   - { name: pipeline-build-step, version: "567.vea_ce550ece97" }
-  - { name: pipeline-github-lib, version: "65.v203688e7727e_“ } 
+  - { name: pipeline-github-lib, version: "65.v203688e7727e" }
   - { name: pipeline-graph-analysis, version: "235.vb_a_a_36b_f248c2" }
   - { name: pipeline-input-step, version: "517.vf8e782ee645c" }
   - { name: pipeline-milestone-step, version: "127.vb_52887ca_3b_6d" }
