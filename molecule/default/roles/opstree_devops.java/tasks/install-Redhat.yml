@@ -1,0 +1,21 @@
+---
+- name: install-Redhat | Install OpenJDK JDK
+  ansible.builtin.dnf:
+    name: "{{ java_version_redhat }}"
+    state: present
+
+- name: install-Redhat | Getting java_home path
+  ansible.builtin.shell: dirname $(dirname $(readlink -f $(which java)))
+  register: command_output
+  changed_when: false
+
+- name: install-Redhat | Set Java environment
+  ansible.builtin.lineinfile:
+    path: /etc/environment
+    line: JAVA_HOME="{{ command_output.stdout }}"
+
+- name: install-Redhat | Reload source file
+  ansible.builtin.shell: source /etc/environment
+  args:
+    executable: /bin/bash
+  changed_when: false

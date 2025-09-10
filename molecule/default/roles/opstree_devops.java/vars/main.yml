@@ -1,0 +1,5 @@
+---
+# java_version_redhat: java-1.8.0-openjdk
+# java_version: openjdk-8-jdk
+java_version_redhat: java-17-openjdk
+java_version: openjdk-17-jdk

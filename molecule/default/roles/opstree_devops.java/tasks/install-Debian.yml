@@ -1,0 +1,31 @@
+---
+
+- name: install-Debian | Ensure 'man' directory exists.
+  ansible.builtin.file:
+    path: /usr/share/man/man1
+    state: directory
+    mode: "0755"
+  when:
+    - ansible_distribution == 'Ubuntu'
+
+- name: install-Debian | Install open jdk-java
+  ansible.builtin.apt:
+    update_cache: true
+    name: "{{ java_version }}"
+    state: present
+
+- name: install-Debian | Getting Java_home path
+  ansible.builtin.shell: dirname $(dirname $(readlink -f $(which java)))
+  register: command_output
+  changed_when: false
+
+- name: install-Debian | Set Java environment
+  ansible.builtin.lineinfile:
+    path: /etc/environment
+    line: JAVA_HOME="{{ command_output.stdout }}"
+
+- name: install-Debian | Reload source file
+  ansible.builtin.shell: source /etc/environment
+  args:
+    executable: /bin/bash
+  changed_when: false

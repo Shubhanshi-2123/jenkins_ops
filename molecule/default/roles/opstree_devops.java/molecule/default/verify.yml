@@ -1,0 +1,30 @@
+---
+- name: Verify Java installation
+  hosts: all
+  gather_facts: false
+  tasks:
+
+    - name: Check if Java is installed
+      ansible.builtin.command: java -version
+      changed_when: false
+      register: java_check
+      ignore_errors: true
+
+    - name: Assert Java is installed
+      ansible.builtin.assert:
+        that:
+          - java_check.rc == 0
+        fail_msg: "Java is not installed or not in PATH"
+        success_msg: "Java is installed successfully"
+
+    - name: Check JAVA_HOME in environment file
+      ansible.builtin.shell: grep -E '^JAVA_HOME=' /etc/environment || true
+      changed_when: false
+      register: env_check
+
+    - name: Assert JAVA_HOME is set
+      ansible.builtin.assert:
+        that:
+          - env_check.stdout | length > 0
+        fail_msg: "JAVA_HOME is not set in /etc/environment"
+        success_msg: "JAVA_HOME is correctly set in /etc/environment"

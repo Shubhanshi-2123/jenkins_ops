@@ -1,0 +1,80 @@
+# Molecule managed
+
+FROM {{ item.image }}
+
+ENV pip_packages="ansible"
+
+# Set environment variables if provided
+{% if item.env is defined %}
+{% for var, value in item.env.items() %}
+{% if value %}
+ENV {{ var }}={{ value }}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+
+# Install base packages depending on the package manager
+RUN set -e; \
+    if command -v apt-get >/dev/null; then \
+        export DEBIAN_FRONTEND=noninteractive; \
+        apt-get update; \
+        apt-get install -y --no-install-recommends apt-utils; \
+        apt-get install -y build-essential; \
+        apt-get install -y locales; \
+        apt-get install -y libffi-dev; \
+        apt-get install -y libssl-dev; \
+        apt-get install -y libyaml-dev; \
+        apt-get install -y python3-dev; \
+        apt-get install -y python3-setuptools; \
+        apt-get install -y python3-pip; \
+        apt-get install -y python3-yaml; \
+        apt-get install -y software-properties-common; \
+        apt-get install -y rsyslog; \
+        apt-get install -y systemd; \
+        apt-get install -y systemd-cron; \
+        apt-get install -y sudo; \
+        apt-get install -y iproute2; \
+        apt-get clean; \
+        rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man; \
+        sed -i 's/^\($ModLoad imklog\)/#\1/' /etc/rsyslog.conf; \
+        locale-gen en_US.UTF-8; \
+        rm -rf /usr/lib/python3.12/EXTERNALLY-MANAGED || true; \
+        rm -f /lib/systemd/system/systemd*udev*; \
+        rm -f /lib/systemd/system/getty.target; \
+    elif command -v yum >/dev/null; then \
+        yum -y install rpm dnf-plugins-core; \
+        yum -y update; \
+        yum -y install epel-release; \
+        yum -y install initscripts; \
+        yum -y install sudo; \
+        yum -y install which; \
+        yum -y install hostname; \
+        yum -y install libyaml; \
+        yum -y install python3; \
+        yum -y install python3-pip; \
+        yum -y install python3-pyyaml; \
+        yum -y install iproute; \
+        yum clean all; \
+        sed -i -e 's/^\(Defaults\s*requiretty\)/#--- \1/' /etc/sudoers; \
+        rm -f /lib/systemd/system/multi-user.target.wants/*; \
+        rm -f /etc/systemd/system/*.wants/*; \
+        rm -f /lib/systemd/system/local-fs.target.wants/*; \
+        rm -f /lib/systemd/system/sockets.target.wants/*udev*; \
+        rm -f /lib/systemd/system/sockets.target.wants/*initctl*; \
+        rm -f /lib/systemd/system/basic.target.wants/*; \
+        rm -f /lib/systemd/system/anaconda.target.wants/*; \
+  else \
+    echo "Unsupported base image: cannot find a supported package manager"; \
+    exit 1; \
+    fi
+
+# Install Ansible via pip
+RUN pip3 install --no-cache-dir $pip_packages
+
+# Setup minimal Ansible inventory
+RUN mkdir -p /etc/ansible
+RUN echo -e '[local]\nlocalhost ansible_connection=local' > /etc/ansible/hosts
+
+VOLUME ["/sys/fs/cgroup", "/tmp", "/run"]
+CMD ["/lib/systemd/systemd"]

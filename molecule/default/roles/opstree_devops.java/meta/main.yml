@@ -1,0 +1,20 @@
+---
+galaxy_info:
+  author: Tejasvi Rana
+  description: This is a role for java installation
+  company: Opstree Solutions
+  min_ansible_version: 2.10
+  license: license (GPLv2)
+  platforms:
+    - name: EL
+      versions:
+        - 7
+        - 6
+    - name: Ubuntu
+      versions:
+        - jammy
+        - noble
+  galaxy_tags:
+    - java
+    - osm
+    - opstree
