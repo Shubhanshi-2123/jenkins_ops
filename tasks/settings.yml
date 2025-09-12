@@ -46,18 +46,4 @@
 
 - name: Trigger handlers immediately in case Jenkins was installed
   meta: flush_handlers
-- name: Wait for Jenkins init file to exist
-  wait_for:
-    path: "{{ jenkins_init_file }}"
-    state: present
-    timeout: 60
-
-- name: Modify variables in init file
-  lineinfile:
-    dest: "{{ jenkins_init_file }}"
-    insertafter: '^{{ item.option }}='
-    regexp: '^{{ item.option }}=\"\${{ item.option }} '
-    line: '{{ item.option }}="${{ item.option }} {{ item.value }}"'
-  loop: "{{ jenkins_init_changes }}"
-  notify: Restart jenkins
 
