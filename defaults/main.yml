@@ -94,10 +94,6 @@ jenkins_plugins_install_dependencies: true
 
 jenkins_process_user: jenkins
 jenkins_process_group: "{{ jenkins_process_user }}"
-jenkins_init_file: "/etc/default/jenkins"
-
-# Env variable name for Java options
-jenkins_java_options_env_var: "JAVA_ARGS"
 
 jenkins_init_changes:
   - option: "JENKINS_ARGS"
