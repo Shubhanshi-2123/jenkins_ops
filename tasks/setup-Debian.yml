@@ -43,20 +43,20 @@
     state: "{{ jenkins_package_state }}"
   notify: configure default users
 
-# # Detect JAVA_HOME and configure it for Jenkins
+# # # Detect JAVA_HOME and configure it for Jenkins
 
-- name: Get Java installation path
-  command: readlink -f /usr/bin/java
-  register: java_path
+# - name: Get Java installation path
+#   command: readlink -f /usr/bin/java
+#   register: java_path
 
-- name: Set JAVA_HOME from java_path
-  set_fact:
-    java_home: "{{ java_path.stdout | regex_replace('/bin/java$', '') }}"
+# - name: Set JAVA_HOME from java_path
+#   set_fact:
+#     java_home: "{{ java_path.stdout | regex_replace('/bin/java$', '') }}"
 
-- name: Set JAVA_HOME in Jenkins environment file
-  lineinfile:
-    path: /etc/default/jenkins
-    regexp: '^JAVA_HOME='
-    line: "JAVA_HOME={{ java_home }}"
-    create: yes
-  notify: Restart jenkins
+# - name: Set JAVA_HOME in Jenkins environment file
+#   lineinfile:
+#     path: /etc/default/jenkins
+#     regexp: '^JAVA_HOME='
+#     line: "JAVA_HOME={{ java_home }}"
+#     create: yes
+#   notify: Restart jenkins
