@@ -45,6 +45,7 @@ jenkins_plugins:
   - { name: commons-lang3-api, version: latest }
   - { name: commons-text-api, version: latest }
   - { name: config-file-provider, version: latest }
+  - { name: configuration-as-code, version: latest } 
   - { name: credentials, version: latest }
   - { name: credentials-binding, version: latest }
   - { name: dark-theme, version: latest }
